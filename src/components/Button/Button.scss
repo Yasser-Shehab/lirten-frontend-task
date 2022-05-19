@@ -1,0 +1,36 @@
+$secondary: #db4437;
+
+.button {
+  width: 100%;
+  border-radius: 53px;
+  height: 72px;
+  margin-top: 10rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.button--submit {
+  background-color: var(--primary-color);
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: darken($color: #161b45, $amount: 3);
+  }
+}
+
+.button--delete {
+  border: 2px solid $secondary;
+  background-color: transparent;
+  color: $secondary;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #fff;
+  }
+}
+
+.btn--disabled {
+  pointer-events: none;
+  background-color: rgb(143, 143, 143);
+}

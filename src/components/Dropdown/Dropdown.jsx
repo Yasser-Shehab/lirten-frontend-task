@@ -1,7 +1,12 @@
-import React from "react";
+import "./Dropdown.scss";
 
 function Dropdown() {
-  return <div>Dropdown</div>;
+  return (
+    <div className="drop-container">
+      <div className="select-input">dsad</div>
+      <div className="select-input">asd</div>
+    </div>
+  );
 }
 
 export default Dropdown;

@@ -1,7 +1,7 @@
 .form-container {
   max-width: 750px;
   margin: 0 auto;
-  margin-top: 15rem;
+  margin-top: 8rem;
 }
 
 .form-title {
@@ -12,19 +12,7 @@
 .form-group {
   position: relative;
   margin-top: 3.6rem;
-  input {
-    border-radius: 50px;
-    border: 1px solid #9e9e9e;
-    background-color: transparent;
-    padding-left: 6rem;
-    width: 100%;
-    height: 72px;
-    font-size: 2.4rem;
-    outline: none;
-    &::placeholder {
-      font-size: 2.4rem;
-    }
-  }
+
   span {
     position: absolute;
     font-size: 20px;
@@ -32,4 +20,29 @@
     left: 25px;
     color: #757575;
   }
+}
+.form-input {
+  border-radius: 50px;
+  border: 1px solid #9e9e9e;
+  background-color: transparent;
+  padding-left: 6rem;
+  width: 100%;
+  height: 72px;
+  font-size: 2.4rem;
+  outline: none;
+  &::placeholder {
+    font-size: 2.4rem;
+  }
+}
+
+.error__msg {
+  color: red;
+  font-size: 1.5rem;
+  text-align: left;
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+}
+
+.is-invalid {
+  border: 2px solid #de1b1b;
 }

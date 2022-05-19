@@ -1,13 +1,20 @@
 import "./Input.scss";
-import { useField } from "formik";
+import { ErrorMessage, useField } from "formik";
+import { $CombinedState } from "@reduxjs/toolkit";
 
 function Input({ children, ...props }) {
   const [field, meta] = useField(props);
-  console.log(field, meta);
   return (
     <div className="form-group">
-      <input {...props} />
+      <input
+        {...props}
+        {...field}
+        className={`form-input ${meta.touched && meta.error && "is-invalid"}`}
+      />
       <span>{children}</span>
+      <div className="error__msg">
+        <ErrorMessage name={field.name} />
+      </div>
     </div>
   );
 }
