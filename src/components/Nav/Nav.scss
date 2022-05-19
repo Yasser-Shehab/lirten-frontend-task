@@ -1,7 +1,7 @@
 .nav-container {
   background-color: var(--primary-color);
 
-  padding: 2.7rem;
+  padding: 2rem;
   @media (max-width: 768px) {
     padding: 2.7rem 2rem;
   }
@@ -11,8 +11,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 90vw;
+  max-width: 76vw;
   margin: 0 auto;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .nav-links {
@@ -23,24 +26,16 @@
     li {
       color: #fff;
       font-size: 1.6rem;
-      margin-left: 5rem;
+      margin-left: 2.5rem;
+      margin-right: 2.5rem;
       text-decoration: none;
       font-weight: 300;
     }
+    @media (max-width: 768px) {
+      margin-top: 3rem;
+    }
   }
 }
-
-// .border-gradient {
-//   border: 4px solid;
-//   border-image-slice: 1;
-//   border-width: 5px;
-//   padding: 1rem 2rem;
-//   border-radius: 27px;
-//   cursor: pointer;
-// }
-// .border-gradient-purple {
-//   border-image-source: linear-gradient(90deg, #d393ef 0%, #2bd4fb 100%);
-// }
 
 .purple-grad {
   display: inline-block;

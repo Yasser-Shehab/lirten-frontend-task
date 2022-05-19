@@ -21,7 +21,7 @@ function Nav() {
                   to="/"
                   className={({ isActive }) => (isActive ? "purple-grad" : undefined)}
                 >
-                  PROFILE
+                  PROFILES
                 </NavLink>
               </li>
               <li>

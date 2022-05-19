@@ -1,0 +1,16 @@
+.create-container {
+  position: fixed;
+  bottom: 5%;
+  right: 10%;
+  display: grid;
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  cursor: pointer;
+}
+
+.create-icon {
+  margin: auto;
+}
