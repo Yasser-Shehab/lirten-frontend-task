@@ -8,3 +8,28 @@
   text-align: center;
   color: var(--primary-color);
 }
+
+.form-group {
+  position: relative;
+  margin-top: 3.6rem;
+  input {
+    border-radius: 50px;
+    border: 1px solid #9e9e9e;
+    background-color: transparent;
+    padding-left: 6rem;
+    width: 100%;
+    height: 72px;
+    font-size: 2.4rem;
+    outline: none;
+    &::placeholder {
+      font-size: 2.4rem;
+    }
+  }
+  span {
+    position: absolute;
+    font-size: 20px;
+    top: 25px;
+    left: 25px;
+    color: #757575;
+  }
+}
