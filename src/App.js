@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Nav />}>
-        <Route index element={<Main />} />
+        <Route index element={<CardList />} />
         <Route path="add" element={<Form />} />
       </Route>
     </Routes>
