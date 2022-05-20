@@ -1,6 +1,5 @@
 import "./Input.scss";
 import { ErrorMessage, useField } from "formik";
-import { $CombinedState } from "@reduxjs/toolkit";
 
 function Input({ children, ...props }) {
   const [field, meta] = useField(props);
