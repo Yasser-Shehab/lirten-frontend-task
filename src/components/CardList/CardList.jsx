@@ -3,6 +3,7 @@ import Create from "../Create/Create";
 import axios from "axios";
 import "./CardList.scss";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 function CardList() {
   const [profiles, setProfiles] = useState([]);
@@ -27,11 +28,11 @@ function CardList() {
           {profiles.map((profile) => {
             return (
               <Card
-                key={profile.id}
-                id={profile.id}
+                id={profile._id}
+                key={profile._id}
                 firstname={profile.firstname}
                 lastname={profile.lastname}
-                job={profile.job}
+                job={profile.jobTitle}
                 email={profile.email}
                 country={profile.country}
                 state={profile.state}

@@ -1,17 +1,18 @@
 import "./Button.scss";
 
 const BUTTON_TYPE_CLASSES = {
-  delete: "button--delete",
+  button: "button--delete",
   submit: "button--submit",
 };
 
-function Button({ type, valid }) {
+function Button({ type, valid, title, onDelete }) {
   return (
     <button
       type={type}
       className={`button ${BUTTON_TYPE_CLASSES[type]} ${!valid && "btn--disabled"}`}
+      onClick={onDelete}
     >
-      SUBMIT
+      {title}
     </button>
   );
 }

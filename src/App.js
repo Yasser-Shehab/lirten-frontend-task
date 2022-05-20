@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Nav />}>
           <Route index element={<CardList />} />
-          <Route path="add" element={<CreateForm />} />
+          <Route path="add/:id" element={<CreateForm />} />
         </Route>
       </Routes>
       <ToastContainer className="toaster-style" />

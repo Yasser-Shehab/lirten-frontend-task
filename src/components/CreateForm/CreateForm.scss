@@ -58,3 +58,12 @@
     flex-direction: column;
   }
 }
+
+.spinner-container {
+  text-align: center;
+  transform: translateY(100%);
+  img {
+    margin: 0 auto;
+    text-align: center;
+  }
+}

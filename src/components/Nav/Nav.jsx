@@ -26,7 +26,7 @@ function Nav() {
               </li>
               <li>
                 <NavLink
-                  to="add"
+                  to={`add/${0}`}
                   className={({ isActive }) => (isActive ? "purple-grad" : undefined)}
                 >
                   ADD PROFILE
