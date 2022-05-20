@@ -1,27 +1,20 @@
 import "./CreateForm.scss";
 import { Formik, Form, Field } from "formik";
 import Input from "../Input/Input";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { FaEnvelope, FaUserAlt, FaUserTie, FaFlag, FaSearchLocation } from "react-icons/fa";
 import Button from "../Button/Button";
 import * as Yup from "yup";
 import axios from "axios";
 import Dropdown from "../Dropdown/Dropdown";
-import { useState } from "react";
-// import { CountryDropdown, RegionDropdown, CountryRegionData } from "react-country-region-selector";
+import { createProfile, reset } from "../../store/slices/profileSlice";
 
 function CreateForm() {
-  // const [country, setCountry] = useState("");
-  // const [state, setstate] = useState("");
+  const navigate = useNavigate();
 
-  // console.log(country);
-  // console.log(state);
-
-  // const selectCountry = (val) => {
-  //   setCountry((prev) => (prev = val));
-  // };
-  // const selectState = (val) => {
-  //   setstate((prev) => (prev = val));
-  // };
   const validate = Yup.object({
     firstname: Yup.string()
       .max(15, "Cant be more than 15 Characters")
@@ -29,7 +22,7 @@ function CreateForm() {
     lastname: Yup.string()
       .max(20, "Cant be more than 20 Characters")
       .required("This field is Required"),
-    email: Yup.string().email("Email is Invalid"),
+    email: Yup.string().email("Email is Invalid").required("Email is Required"),
     jobTitle: Yup.string().max(20, "Cant be more than 20 Characters"),
     country: Yup.string().required("This field is Required"),
     state: Yup.string().required("This field is Required"),
@@ -46,9 +39,16 @@ function CreateForm() {
       }}
       validationSchema={validate}
       onSubmit={async (values) => {
-        const response = await axios.post("http://localhost:4000/api/profile/", values);
-        console.log(response);
-        return response.data;
+        axios
+          .post("http://localhost:4000/api/profile/", values)
+          .then(() => {
+            toast.success("Created Successfuly");
+            navigate("/");
+          })
+          .catch((error) => {
+            toast.error(error.response.data);
+            console.log(error);
+          });
       }}
     >
       {(formik) => (
@@ -63,7 +63,7 @@ function CreateForm() {
               <Input placeholder="Last Name*" name="lastname" type="text">
                 <FaUserAlt />
               </Input>
-              <Input placeholder="E-Mail" name="email" type="text">
+              <Input placeholder="E-Mail*" name="email" type="text">
                 <FaEnvelope />
               </Input>
               <Input placeholder="Job Title" name="jobTitle" type="text">

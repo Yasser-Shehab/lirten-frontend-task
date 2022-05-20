@@ -2,20 +2,24 @@ import "./Card.scss";
 import gradientLine from "../../assets/imgs/gradient_line.svg";
 import logo_dark from "../../assets/imgs/logo_dark.svg";
 
-function Card() {
+function Card({ firstname, lastname, job, email, country, state }) {
   return (
     <div className="card-contaienr">
       <div className="details">
-        <h3>Youssef Samir</h3>
-        <p>Software Engineer</p>
+        <h3>
+          {firstname} {lastname}
+        </h3>
+        <p>{job}</p>
         <img src={gradientLine} />
       </div>
       <div className="info">
         <img src={logo_dark} />
         <ul>
-          <li>+20 100 2222 444</li>
-          <li>youssef@stract.com</li>
-          <li>Cairo, Egypt.</li>
+          <li>{email}</li>
+          <div className="address-info">
+            <li>{country},</li>
+            <li>{state}</li>
+          </div>
         </ul>
       </div>
     </div>
