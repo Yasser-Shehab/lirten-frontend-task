@@ -12,6 +12,10 @@
   color: var(--primary-color);
 }
 
+.skeleton-container {
+  overflow: hidden;
+}
+
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(470px, auto));

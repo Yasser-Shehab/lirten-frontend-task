@@ -3,7 +3,8 @@ import Create from "../Create/Create";
 import axios from "axios";
 import "./CardList.scss";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import SkeletonElement from "../Seketon/SkeletonElement";
+import { SkeletonCarosel } from "../Seketon/SkeletonCarosel";
 
 function CardList() {
   const [profiles, setProfiles] = useState([]);
@@ -18,32 +19,48 @@ function CardList() {
         console.log(error);
       });
   }, []);
-  return (
-    <>
-      <div className="cardlist-container">
-        <div className="section-title">
-          <h1>Professional Profiles</h1>
+  if (profiles && profiles.length !== 0) {
+    return (
+      <>
+        <div className="cardlist-container">
+          <div className="section-title">
+            <h1>Professional Profiles</h1>
+          </div>
+          <div className="card-container">
+            {profiles.map((profile) => {
+              return (
+                <Card
+                  id={profile._id}
+                  key={profile._id}
+                  firstname={profile.firstname}
+                  lastname={profile.lastname}
+                  job={profile.jobTitle}
+                  email={profile.email}
+                  country={profile.country}
+                  state={profile.state}
+                />
+              );
+            })}
+          </div>
         </div>
-        <div className="card-container">
-          {profiles.map((profile) => {
-            return (
-              <Card
-                id={profile._id}
-                key={profile._id}
-                firstname={profile.firstname}
-                lastname={profile.lastname}
-                job={profile.jobTitle}
-                email={profile.email}
-                country={profile.country}
-                state={profile.state}
-              />
-            );
-          })}
+        <Create />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div className="cardlist-container">
+          <div className="section-title">
+            <h1>Professional Profiles</h1>
+          </div>
+          <div className="skeleton-container">
+            <SkeletonCarosel />
+          </div>
         </div>
-      </div>
-      <Create />
-    </>
-  );
+        <Create />
+      </>
+    );
+  }
 }
 
 export default CardList;

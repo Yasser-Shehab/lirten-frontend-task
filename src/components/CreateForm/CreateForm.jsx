@@ -10,12 +10,23 @@ import Button from "../Button/Button";
 import * as Yup from "yup";
 import axios from "axios";
 import Dropdown from "../Dropdown/Dropdown";
-import { createProfile, reset } from "../../store/slices/profileSlice";
-import { CountryDropdown, RegionDropdown, CountryRegionData } from "react-country-region-selector";
 import { useParams } from "react-router-dom";
 import spinner from "../../assets/imgs/spinner.gif";
+import { useQuery } from "react-query";
 
 function CreateForm() {
+  const [countries, setcountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const { isLoading, isError, data, error, refetch } = useQuery("countries", async () => {
+    let requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    const { data } = await axios("https://countriesnow.space/api/v0.1/countries", requestOptions);
+    setcountries(data.data);
+    return data;
+  });
+
   const [initialValues, setInitialValues] = useState({
     firstname: "",
     lastname: "",
@@ -26,19 +37,10 @@ function CreateForm() {
   });
 
   const { id } = useParams();
-  console.log(id);
+
   const navigate = useNavigate();
-  const [country, setCountry] = useState("");
-  const [region, setRegion] = useState("");
+
   const [loading, setLoading] = useState(true);
-
-  const selectCountry = (val) => {
-    setCountry(val);
-  };
-
-  const selectRegion = (val) => {
-    setCountry(val);
-  };
 
   useEffect(() => {
     if (id !== "0") {
@@ -86,6 +88,12 @@ function CreateForm() {
         console.log(error);
       });
   };
+
+  //Get Index Of Selected Country
+  let countryIndex = countries.findIndex((object) => {
+    return object.country === selectedCountry;
+  });
+  let citiesFromCountryIndex = countries[countryIndex];
 
   return (
     <Formik
@@ -141,12 +149,28 @@ function CreateForm() {
                 <FaUserTie />
               </Input>
               <div className="countires-container">
-                <Input placeholder="Country*" name="country" type="text">
-                  <FaFlag />
-                </Input>
-                <Input placeholder="States" name="state" type="text">
-                  <FaSearchLocation />
-                </Input>
+                <Dropdown
+                  name="country"
+                  label="Select Country"
+                  setSelectedCountry={setSelectedCountry}
+                >
+                  <option value="">Please Select a Country</option>
+                  {countries.map((c, index) => (
+                    <option key={index} value={c.country}>
+                      {c.country}
+                    </option>
+                  ))}
+                </Dropdown>
+                <Dropdown name="state">
+                  <option value="">Please Select a State</option>
+                  {countryIndex !== -1
+                    ? citiesFromCountryIndex.cities.map((c, index) => (
+                        <option key={index} value={c}>
+                          {c}
+                        </option>
+                      ))
+                    : null}
+                </Dropdown>
               </div>
               <Button type="submit" title={id !== "0" ? "EDIT" : "SUBMIT"} valid={formik.isValid} />
 

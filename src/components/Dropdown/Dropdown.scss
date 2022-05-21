@@ -2,3 +2,25 @@
   display: flex;
   justify-content: space-around;
 }
+
+.dropdown-container {
+  position: relative;
+  margin: 2rem 0.4rem 0;
+  width: 100%;
+  &::after {
+    content: "▼";
+    font-size: 2rem;
+    position: absolute;
+    top: 30%;
+    right: 5%;
+  }
+  select {
+    height: 72px;
+    width: 100%;
+    color: #757575;
+    background: var(--grey-color);
+    border-radius: 53px;
+    padding-left: 2rem;
+    appearance: none;
+  }
+}
