@@ -1,9 +1,8 @@
 import "./CreateForm.scss";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import Input from "../Input/Input";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { FaEnvelope, FaUserAlt, FaUserTie, FaFlag, FaSearchLocation } from "react-icons/fa";
 import Button from "../Button/Button";
@@ -15,9 +14,23 @@ import spinner from "../../assets/imgs/spinner.gif";
 import { useQuery } from "react-query";
 
 function CreateForm() {
+  const [initialValues, setInitialValues] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    jobTitle: "",
+    country: "",
+    state: "",
+  });
   const [countries, setcountries] = useState([]);
+  const [selectedState, setSelectedState] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
-  const { isLoading, isError, data, error, refetch } = useQuery("countries", async () => {
+  const [loading, setLoading] = useState(true);
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  //Fetching Countries once and Caching them to Prevent Re-fetching on Re-rendering
+  const { isError } = useQuery("countries", async () => {
     let requestOptions = {
       method: "GET",
       redirect: "follow",
@@ -27,35 +40,19 @@ function CreateForm() {
     return data;
   });
 
-  const [initialValues, setInitialValues] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    jobTitle: "",
-    country: "",
-    state: "",
-  });
-
-  const { id } = useParams();
-
-  const navigate = useNavigate();
-
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if (id !== "0") {
       axios.get("http://localhost:4000/api/profile/" + id).then(({ data }) => {
         const { firstname, lastname, email, jobTitle, country, state } = data;
         setInitialValues({ firstname, lastname, email, jobTitle, country, state });
-
         setLoading(false);
-        console.log(data);
       });
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [id]);
 
+  //Form Validation Schema Using Yup
   const validate = Yup.object({
     firstname: Yup.string()
       .max(15, "Cant be more than 15 Characters")
@@ -74,6 +71,10 @@ function CreateForm() {
         <img src={spinner} />
       </div>
     );
+  }
+
+  if (isError) {
+    return <h1>Could not fetch Countries and State Data</h1>;
   }
 
   const handleDelete = () => {
@@ -128,7 +129,6 @@ function CreateForm() {
       {(formik) => (
         <div className="form-container">
           <div className="form-title">
-            {console.log(formik.values)}
             <h1>Submit Profile</h1>
             <Form>
               <Input
@@ -152,21 +152,29 @@ function CreateForm() {
                 <Dropdown
                   name="country"
                   label="Select Country"
+                  selectedCountry={selectedCountry}
                   setSelectedCountry={setSelectedCountry}
+                  icon={<FaFlag />}
                 >
-                  <option value="">Please Select a Country</option>
+                  <option value="">Country*</option>
                   {countries.map((c, index) => (
                     <option key={index} value={c.country}>
                       {c.country}
                     </option>
                   ))}
                 </Dropdown>
-                <Dropdown name="state">
-                  <option value="">Please Select a State</option>
+                <Dropdown
+                  name="state"
+                  label="Select State"
+                  icon={<FaSearchLocation />}
+                  selectedState={selectedState}
+                  setSelectedState={setSelectedState}
+                >
+                  <option value="">State*</option>
                   {countryIndex !== -1
-                    ? citiesFromCountryIndex.cities.map((c, index) => (
-                        <option key={index} value={c}>
-                          {c}
+                    ? citiesFromCountryIndex.cities.map((city, index) => (
+                        <option key={index} value={city}>
+                          {city}
                         </option>
                       ))
                     : null}

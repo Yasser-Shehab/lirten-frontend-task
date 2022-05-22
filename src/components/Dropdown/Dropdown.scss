@@ -20,7 +20,19 @@
     color: #757575;
     background: var(--grey-color);
     border-radius: 53px;
-    padding-left: 2rem;
+    padding-left: 6rem;
     appearance: none;
   }
+}
+
+.icon {
+  position: absolute;
+  color: #757575;
+  font-size: 20px;
+  top: 25px;
+  left: 25px;
+}
+
+.active-dropdown {
+  color: var(--color-primary) !important;
 }

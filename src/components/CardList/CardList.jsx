@@ -3,7 +3,6 @@ import Create from "../Create/Create";
 import axios from "axios";
 import "./CardList.scss";
 import { useEffect, useState } from "react";
-import SkeletonElement from "../Seketon/SkeletonElement";
 import { SkeletonCarosel } from "../Seketon/SkeletonCarosel";
 
 function CardList() {
@@ -13,7 +12,6 @@ function CardList() {
       .get("http://localhost:4000/api/profile/all")
       .then((res) => {
         setProfiles(res.data);
-        console.log(res);
       })
       .catch((error) => {
         console.log(error);

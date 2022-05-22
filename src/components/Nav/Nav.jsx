@@ -4,15 +4,14 @@ import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
 function Nav() {
-  let activeStyle = {
-    textDecoration: "underline",
-  };
   return (
     <>
       <nav className="nav-container">
         <div className="nav-wrapper">
           <div className="logo">
-            <img src={logo} alt="logo" />
+            <NavLink to="/">
+              <img src={logo} alt="logo" />
+            </NavLink>
           </div>
           <div className="nav-links">
             <ul>
